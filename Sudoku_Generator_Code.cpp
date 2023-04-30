@@ -82,7 +82,7 @@ bool UsedInRow(int grid[9][9], int row, int num)
 
     return false;
 }
-//! Step 5 : Use helper function to check if number is present in column or not
+//! Step 5 : Using helper function to check if number is present in column or not
 bool UsedInCol(int grid[9][9], int col, int num)
 {
     for (int row = 0; row < 9; row++)
