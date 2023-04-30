@@ -342,3 +342,29 @@ bool Sudoku::solveGrid()
 
 }
 // END: Modified Sudoku Solver
+
+// START: Check if the grid is uniquely solvable
+void Sudoku::countSoln(int &number)
+{
+  int row, col;
+
+  if(!FindUnassignedLocation(this->grid, row, col))
+  {
+    number++;
+    return ;
+  }
+
+
+  for(int i=0;i<9 && number<2;i++)
+  {
+      if( isSafe(this->grid, row, col, this->guessNum[i]) )
+      {
+        this->grid[row][col] = this->guessNum[i];
+        countSoln(number);
+      }
+
+      this->grid[row][col] = UNASSIGNED;
+  }
+
+}
+// END: Check if the grid is uniquely solvable
