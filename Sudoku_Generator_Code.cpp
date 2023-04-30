@@ -71,3 +71,25 @@ bool FindUnassignedLocation(int grid[9][9], int &row, int &col)
 
     return false;
 }
+//! Step 4 : Use Helper function to check if number is present in row or not
+bool UsedInRow(int grid[9][9], int row, int num)
+{
+    for (int col = 0; col < 9; col++)
+    {
+        if (grid[row][col] == num)
+            return true;
+    }
+
+    return false;
+}
+//! Step 5 : Use helper function to check if number is present in column or not
+bool UsedInCol(int grid[9][9], int col, int num)
+{
+    for (int row = 0; row < 9; row++)
+    {
+        if (grid[row][col] == num)
+            return true;
+    }
+
+    return false;
+}
