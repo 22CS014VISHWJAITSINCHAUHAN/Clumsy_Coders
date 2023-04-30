@@ -311,3 +311,34 @@ void Sudoku::printGrid()
   cout << endl;
 }
 // END: Printing the grid
+// START: Modified Sudoku solver
+bool Sudoku::solveGrid()
+{
+    int row, col;
+
+    // If there is no unassigned location, we are done
+    if (!FindUnassignedLocation(this->grid, row, col))
+       return true; // success!
+
+    // Consider digits 1 to 9
+    for (int num = 0; num < 9; num++)
+    {
+        // if looks promising
+        if (isSafe(this->grid, row, col, this->guessNum[num]))
+        {
+            // make tentative assignment
+            this->grid[row][col] = this->guessNum[num];
+
+            // return, if success, yay!
+            if (solveGrid())
+                return true;
+
+            // failure, unmake & try again
+            this->grid[row][col] = UNASSIGNED;
+        }
+    }
+
+    return false; // this triggers backtracking
+
+}
+// END: Modified Sudoku Solver
