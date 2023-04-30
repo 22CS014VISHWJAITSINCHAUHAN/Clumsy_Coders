@@ -114,3 +114,49 @@ bool isSafe(int grid[9][9], int row, int col, int num)
     return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) && !UsedInBox(grid, row - row%3 , col - col%3, num);
 }
 // END: Helper functions for solving grid
+
+
+// START: Create seed grid
+//! Step 9 : Create a seed grid to generate a random number
+void Sudoku::fillEmptyDiagonalBox(int idx)
+{
+  int start = idx*3;
+  random_shuffle(this->guessNum, (this->guessNum) + 9, genRandNum);
+  for (int i = 0; i < 3; ++i)
+  {
+    for (int j = 0; j < 3; ++j)
+    {
+      this->grid[start+i][start+j] = guessNum[i*3+j];
+    }
+  }
+}
+
+//! Step 10 : Create a helper function for seed grid
+void Sudoku::createSeed()
+{
+  /* Fill diagonal boxes to form:
+      x | . | .
+      . | x | .
+      . | . | x
+  */
+  this->fillEmptyDiagonalBox(0);
+  this->fillEmptyDiagonalBox(1);
+  this->fillEmptyDiagonalBox(2);
+
+  /* Fill the remaining blocks:
+      x | x | x
+      x | x | x
+      x | x | x
+  */
+  this->solveGrid(); // TODO: not truly random, but still good enough because we generate random diagonals.
+
+  // Saving the solution grid
+  for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+      this->solnGrid[i][j] = this->grid[i][j];
+    }
+  }
+}
+// END: Create seed grid
