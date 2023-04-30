@@ -160,3 +160,122 @@ void Sudoku::createSeed()
   }
 }
 // END: Create seed grid
+// START: Intialising
+//!Step 2 : Defualt Constructor
+Sudoku::Sudoku()
+{
+
+  // initialize difficulty level
+  this->difficultyLevel = 0;
+
+  // Randomly shuffling the array of removing grid positions
+  for(int i=0;i<81;i++)
+  {
+    this->gridPos[i] = i;
+  }
+
+  random_shuffle(this->gridPos, (this->gridPos) + 81, genRandNum);
+
+  // Randomly shuffling the guessing number array
+  for(int i=0;i<9;i++)
+  {
+    this->guessNum[i]=i+1;
+  }
+
+  random_shuffle(this->guessNum, (this->guessNum) + 9, genRandNum);
+
+  // Initialising the grid
+  for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+      this->grid[i][j]=0;
+    }
+  }
+
+  grid_status = true;
+}
+// END: Initialising
+
+//! Step 11 : Create a Parameterized Constructor
+// START: Custom Initialising with grid passed as argument
+Sudoku::Sudoku(string grid_str, bool row_major)
+{
+  if(grid_str.length() != 81)
+  {
+    grid_status=false;
+    return;
+  }
+ // First pass: Check if all cells are valid
+  for(int i=0; i<81; ++i)
+  {
+    int curr_num = grid_str[i]-'0';
+    if(!((curr_num == UNASSIGNED) || (curr_num > 0 && curr_num < 10)))
+    {
+      grid_status=false;
+      return;
+    }
+
+    if(row_major) grid[i/9][i%9] = curr_num;
+    else          grid[i%9][i/9] = curr_num;
+  }
+
+  // Second pass: Check if all columns are valid
+  for (int col_num=0; col_num<9; ++col_num)
+  {
+    bool nums[10]={false};
+    for (int row_num=0; row_num<9; ++row_num)
+    {
+      int curr_num = grid[row_num][col_num];
+      if(curr_num!=UNASSIGNED && nums[curr_num]==true)
+      {
+        grid_status=false;
+        return;
+      }
+      nums[curr_num] = true;
+    }
+  }
+
+  // Third pass: Check if all rows are valid
+  for (int row_num=0; row_num<9; ++row_num)
+  {
+    bool nums[10]={false};
+    for (int col_num=0; col_num<9; ++col_num)
+    {
+      int curr_num = grid[row_num][col_num];
+      if(curr_num!=UNASSIGNED && nums[curr_num]==true)
+      {
+        grid_status=false;
+        return;
+      }
+      nums[curr_num] = true;
+    }
+  }
+
+  // Fourth pass: Check if all blocks are valid
+  for (int block_num=0; block_num<9; ++block_num)
+  {
+    bool nums[10]={false};
+    for (int cell_num=0; cell_num<9; ++cell_num)
+    {
+      int curr_num = grid[((int)(block_num/3))*3 + (cell_num/3)][((int)(block_num%3))*3 + (cell_num%3)];
+      if(curr_num!=UNASSIGNED && nums[curr_num]==true)
+      {
+        grid_status=false;
+        return;
+      }
+      nums[curr_num] = true;
+    }
+  }
+
+  // Randomly shuffling the guessing number array
+  for(int i=0;i<9;i++)
+  {
+    this->guessNum[i]=i+1;
+  }
+
+  random_shuffle(this->guessNum, (this->guessNum) + 9, genRandNum);
+
+  grid_status = true;
+}
+// END: Custom Initialising
