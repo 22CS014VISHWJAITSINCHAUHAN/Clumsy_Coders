@@ -1,4 +1,4 @@
-//This code is Developed by 22CS008,22CS014,22CS033.
+//This code is Developed by 22CS008,22CS014,22CS009
 // This will generate a svg file format or sudoku puzzle. Which you can fetch easily.
 // For example you can use it as a online Sudoku website generator.
 
