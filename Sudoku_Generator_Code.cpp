@@ -279,3 +279,35 @@ Sudoku::Sudoku(string grid_str, bool row_major)
   grid_status = true;
 }
 // END: Custom Initialising
+
+
+// START: Verification status of the custom grid passed
+//! Check if Grid is valid or not
+bool Sudoku::verifyGridStatus()
+{
+  return grid_status;
+}
+// END: Verification of the custom grid passed
+
+
+// START: Printing the grid
+void Sudoku::printGrid()
+{
+  for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+      if(grid[i][j] == 0)
+	cout<<".";
+      else
+	cout<<grid[i][j];
+      cout<<"|";
+    }
+    cout<<endl;
+  }
+
+  cout<<"\nDifficulty of current sudoku(0 being easiest): "<<this->difficultyLevel;
+  cout << "\nCreated By 22CS008, 22CS014, 22CS033";
+  cout << endl;
+}
+// END: Printing the grid
