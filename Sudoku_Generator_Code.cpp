@@ -93,3 +93,24 @@ bool UsedInCol(int grid[9][9], int col, int num)
 
     return false;
 }
+
+//! Step 6 : Use Helper function to check if number is present in a 3 x 3 matrix or not
+bool UsedInBox(int grid[9][9], int boxStartRow, int boxStartCol, int num)
+{
+    for (int row = 0; row < 3; row++)
+    {
+        for (int col = 0; col < 3; col++)
+        {
+            if (grid[row+boxStartRow][col+boxStartCol] == num)
+                return true;
+        }
+    }
+
+    return false;
+}
+//! Step 7 : Use Helper Function to check if number is Used in Row, Column and Box
+bool isSafe(int grid[9][9], int row, int col, int num)
+{
+    return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) && !UsedInBox(grid, row - row%3 , col - col%3, num);
+}
+// END: Helper functions for solving grid
