@@ -48,3 +48,26 @@ string Sudoku::getGrid()
   return s;
 }
 // END: Get grid as string in row major order
+// START: Generate random number
+int genRandNum(int maxLimit)
+{
+  return rand()%maxLimit;
+}
+// END: Generate random number
+
+
+// START: Helper functions for solving grid
+//! Step 4 : Implement the helper function to solve the Sudoku
+bool FindUnassignedLocation(int grid[9][9], int &row, int &col)
+{
+    for (row = 0; row < 9; row++)
+    {
+        for (col = 0; col < 9; col++)
+        {
+            if (grid[row][col] == UNASSIGNED)
+                return true;
+        }
+    }
+
+    return false;
+}
