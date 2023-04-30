@@ -1,4 +1,4 @@
-//This code is Developed by 22CS008,22CS014,22CS009
+//This code is Developed by 22CS008,22CS014,22CS033
 // This will generate a svg file format or sudoku puzzle. Which you can fetch easily.
 // For example you can use it as a online Sudoku website generator.
 
@@ -33,3 +33,18 @@ public:
   void calculateDifficulty();
   int  branchDifficultyScore();
 };
+// START: Get grid as string in row major order
+string Sudoku::getGrid()
+{
+  string s = "";
+  for(int row_num=0; row_num<9; ++row_num)
+  {
+    for(int col_num=0; col_num<9; ++col_num)
+    {
+      s = s + to_string(grid[row_num][col_num]);
+    }
+  }
+
+  return s;
+}
+// END: Get grid as string in row major order
