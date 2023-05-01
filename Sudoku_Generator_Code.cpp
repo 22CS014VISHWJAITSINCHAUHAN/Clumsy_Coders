@@ -389,3 +389,38 @@ void Sudoku::genPuzzle()
   }
 }
 // END: Generate puzzle
+
+// START: Printing into SVG file
+void Sudoku::printSVG(string path="")
+{
+  string fileName = path + "svgHead.txt";
+  ifstream file1(fileName.c_str());
+  stringstream svgHead;
+  svgHead << file1.rdbuf();
+
+  ofstream outFile("puzzle.svg");
+  outFile << svgHead.rdbuf();
+
+  for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+      if(this->grid[i][j]!=0)
+      {
+        int x = 50*j + 16;
+        int y = 50*i + 35;
+
+        stringstream text;
+        text<<"<text x=\""<<x<<"\" y=\""<<y<<"\" style=\"font-weight:bold\" font-size=\"30px\">"<<this->grid[i][j]<<"</text>\n";
+
+        outFile << text.rdbuf();
+      }
+    }
+  }
+
+    outFile << "<text x=\"50\" y=\"500\" style=\"font-weight:bold\" font-size=\"15px\">Difficulty Level (0 being easiest): "                  <<this->difficultyLevel<<"</text>\n";
+    outFile << "</svg>";
+
+}
+// END: Printing into SVG file
+
