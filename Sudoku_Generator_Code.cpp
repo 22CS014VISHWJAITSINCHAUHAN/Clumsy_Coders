@@ -378,3 +378,14 @@ void Sudoku::genPuzzle()
     int y = (this->gridPos[i])%9;
     int temp = this->grid[x][y];
     this->grid[x][y] = UNASSIGNED;
+
+    // If now more than 1 solution , replace the removed cell back.
+    int check=0;
+    countSoln(check);
+    if(check!=1)
+    {
+      this->grid[x][y] = temp;
+    }
+  }
+}
+// END: Generate puzzle
