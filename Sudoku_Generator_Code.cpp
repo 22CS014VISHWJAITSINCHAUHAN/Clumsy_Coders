@@ -493,3 +493,22 @@ int Sudoku::branchDifficultyScore()
 
 }
 // END: Finish branch difficulty score
+
+// START: Calculate difficulty level of current grid
+void Sudoku::calculateDifficulty()
+{
+  int B = branchDifficultyScore();
+  int emptyCells = 0;
+
+  for(int i=0;i<9;i++)
+  {
+    for(int j=0;j<9;j++)
+    {
+	if(this->grid[i][j] == 0)
+	    emptyCells++;
+    }
+  }
+
+  this->difficultyLevel = B*100 + emptyCells;
+}
+// END: calculating difficulty level
