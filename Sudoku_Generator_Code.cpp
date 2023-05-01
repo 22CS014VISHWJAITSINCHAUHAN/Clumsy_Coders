@@ -368,3 +368,13 @@ void Sudoku::countSoln(int &number)
 
 }
 // END: Check if the grid is uniquely solvable
+
+// START: Generate puzzle
+void Sudoku::genPuzzle()
+{
+  for(int i=0;i<81;i++)
+  {
+    int x = (this->gridPos[i])/9;
+    int y = (this->gridPos[i])%9;
+    int temp = this->grid[x][y];
+    this->grid[x][y] = UNASSIGNED;
